@@ -31,11 +31,11 @@ more examples](src/test/kotlin/fr/discowzombie/kpigot/example/item/Item.kt).
 
 ### File
 
-Multiple yaml configuration can be hard to manage by using Java. Hopefully, with Kotlin, this become easy simple :
+Multiple yaml configuration can be hard to manage by using Java. Hopefully, with Kotlin, this become easy :
 ````kotlin
 /*
     First parameter is the config name. Without any innovation I choose 'config' but fell free to use your own!
-    You can use your own data folder by adding 'datafolder =' else, default is used (plugins/Kpigot)
+    You can use your own data folder by adding 'datafolder =' else, plugins/Kpigot is used
     If the file doesn't exist, it will be created. Else, simply loaded
 */
 val variable = KFile("config", {
@@ -57,8 +57,7 @@ var value = KFile("config").yamlFile.getString("key")
 
 ### Inventory
 
-Inventory is an important part of some plugins. Their management was hard, we need class who extends Listener, code is heavy. With
-Kpigot, you have a coherent and lightweight code, thanks to Kotlin technologies :
+Inventory is an important part of some plugins. Their management was hard, we need class who extends Listener, code is usually heavy. With Kpigot, you have a coherent and lightweight code, thanks to Kotlin technologies :
 ```kotlin
 /*
 The first parameter of inventory is displayed-name
@@ -85,8 +84,7 @@ val kInv = KInventory.getInventory("myAwesomeInventory")
 
 ### Task
 
-Tasks (sync and async) were useful for some action : communication with other external applications or website (async), 
-databases, timer and much more ! Creating a task with Kpigot is probably the lightest way allowed by Spigot.
+Tasks (sync and async) were useful for some action : communication with other external applications or website, working with databases, timer and much more ! Creating a task with Kpigot is probably the lightest way allowed by Spigot.
 ```kotlin
 /*
     Sync task - Hope you love lambdas
