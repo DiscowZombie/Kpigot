@@ -1,0 +1,5 @@
+main: fr.discowzombie.kpigot.Kpigot
+name: Kpigot
+version: 1.0-SNAPSHOT
+author: DiscowZombie
+description: Kotlin wrapper for Minecraft. Now it's easy to manage inventory, item, file, task and much more.
