@@ -32,16 +32,23 @@ dependencies {
     testCompileOnly 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
 
-task buildJar(type: Jar) {
-    baseName = project.name
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+task buildPlugin(type: Jar) {
+    baseName = project.name + "Minecraft"
     from {
         configurations.compile.collect {
             it.isDirectory() ? it : zipTree(it)
@@ -49,3 +56,4 @@ task buildJar(type: Jar) {
     }
     with jar
 }
+
