@@ -9,6 +9,8 @@ process by using all Kotlin possibilities.
 
 The wrapper is totally written in Kotlin and design to work with Kotlin 1.2.60 at least.
 
+Kpigot has been tested on 1.12.2 and 1.13.1. He probably works with all versions >= 1.8.
+
 Plans for futures : [PROGRESS.md](PROGRESS.md)
 
 ## Usage
