@@ -12,7 +12,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryInteractEvent
 import org.bukkit.inventory.Inventory
 
-class KInventory(val name: String, private val slot: Int = 9, private val content: (inventory: Inventory) -> Unit) : Listener {
+class KInventory(val name: String, private val slot: Int = 9, private val content: (inventory: Inventory) -> Unit) :
+    Listener {
 
     val inventory: Inventory = Bukkit.createInventory(null, next(slot, 9), name)
     var interact: ((invEvent: InventoryInteractEvent) -> Unit)? = null
@@ -23,7 +24,7 @@ class KInventory(val name: String, private val slot: Int = 9, private val conten
     }
 
     fun open(players: List<Player>): KInventory {
-        InventorySaver.getInstance().oneTimeInventory = this
+        InventorySaver.oneTimeInventory = this
 
         players.forEach {
             it.openInventory(this.inventory)
@@ -40,47 +41,32 @@ class KInventory(val name: String, private val slot: Int = 9, private val conten
     }
 
     fun persistantSave(key: String) {
-        val saver = InventorySaver.getInstance()
+        val saver = InventorySaver
 
         if (saver.persistentInventory[key] != null)
             throw ArrayIndexOutOfBoundsException("One inventory with that name already exist")
 
-        InventorySaver.getInstance().persistentInventory[key] = this
+        saver.persistentInventory[key] = this
     }
 
     companion object {
         @JvmStatic
         fun getInventory(key: String): KInventory? {
-            return InventorySaver.getInstance().persistentInventory[key]
+            return InventorySaver.persistentInventory[key]
         }
     }
 
     private fun next(number: Int, mod: Int): Int {
-        var number: Int = number
+        var num: Int = number
 
-        while (number % mod != 0)
-            number++
+        while (num % mod != 0)
+            num++
 
-        return number
+        return num
     }
 }
 
-class InventorySaver {
-
+object InventorySaver {
     var persistentInventory: HashMap<String, KInventory> = hashMapOf()
     var oneTimeInventory: KInventory? = null
-
-    companion object {
-        @JvmStatic
-        private var instance: InventorySaver? = null
-
-        @JvmStatic
-        fun getInstance(): InventorySaver {
-            if (instance == null)
-                instance = InventorySaver()
-
-            return instance as InventorySaver
-        }
-    }
-
 }

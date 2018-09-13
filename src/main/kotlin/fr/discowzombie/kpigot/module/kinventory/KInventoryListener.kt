@@ -23,9 +23,9 @@ class KInventoryListener : Listener {
         val currentName = invEvent.inventory.name
         val currentSize = invEvent.inventory.size
 
-        var inventory = InventorySaver.getInstance().persistentInventory.values.distinct()
-        if (InventorySaver.getInstance().oneTimeInventory != null)
-            inventory = inventory.plus(InventorySaver.getInstance().oneTimeInventory!!)
+        var inventory = InventorySaver.persistentInventory.values.distinct()
+        if (InventorySaver.oneTimeInventory != null)
+            inventory = inventory.plus(InventorySaver.oneTimeInventory!!)
 
         // Exclude if inventory doesn't match
         val matchedInventoryes: List<KInventory> = inventory
@@ -41,8 +41,8 @@ class KInventoryListener : Listener {
 
     @EventHandler
     private fun inventoryClose(invClose: InventoryCloseEvent) {
-        if (InventorySaver.getInstance().oneTimeInventory != null)
-            InventorySaver.getInstance().oneTimeInventory = null
+        if (InventorySaver.oneTimeInventory != null)
+            InventorySaver.oneTimeInventory = null
     }
 
 }
